@@ -1,5 +1,3 @@
-//My Javascript doc
-
 document.addEventListener("DOMContentLoaded", function() {
 	const squares = document.querySelectorAll("#board div");
 	console.log("Squares: ", squares.length);
@@ -20,11 +18,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	//creating an array to store state of the board
 	const boardState = ["", "", "", "", "", "", "", "", ""];
 	let currentPlay = "X"; //first play is X
+	let gameOver = false;
 
 	//adds ability to click and it places X and O alternatively
 	squares.forEach(function(square, index) {
 		square.addEventListener("click", function() {
-			if (boardState[index] !== ""){
+			if (boardState[index] !== "" || gameOver){
 				return;
 			}
 
@@ -38,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			} else {
 				currentPlay = "X"
 			}
+
 			checkWinner();
 		});
 	});
@@ -66,7 +66,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			boardState[b] === boardState[c] ) {
 				const winner = boardState[a];
 				status.classList.add("you-won");
-				status.textContent = "Congratulations! " + winner + " is the winner!"
+                                status.textContent = "Congratulations! " + winner + " is the winner!";
+				gameOver = true;
 			}
 		}
 	}
@@ -83,6 +84,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 
 		currentPlay = "X";
+		gameOver = false;
+
 		status.textContent = "Move your mouse over a square and click to play an X or an O.";
 		status.classList.remove("you-won");
 
