@@ -2,10 +2,11 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 	const squares = document.querySelectorAll("#board div");
+	console.log("Squares: ", squares.length);
 
 	squares.forEach(function(square) {
 		//creates the 9 square boxes
-        	square.classList.add("square"); 
+        	square.classList.add("square");
 
 		// adding the hover functionality
 		square.addEventListener("mouseenter", function() {
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 	});
 
+	// checks if someone got 3 in a row
 	const status = document.getElementById("status");
 	const winCombos = [
 	[0, 1, 2],
@@ -68,4 +70,21 @@ document.addEventListener("DOMContentLoaded", function() {
 			}
 		}
 	}
+
+	//New Game button functionality
+	newGameBtn = document.querySelector(".btn");
+	newGameBtn.addEventListener("click", function() {
+		console.log("New Game button clicked!");
+
+		squares.forEach(function(square, index) {
+			boardState[index] = "";
+			square.textContent = "";
+			square.classList.remove("X", "O");
+		});
+
+		currentPlay = "X";
+		status.textContent = "Move your mouse over a square and click to play an X or an O.";
+		status.classList.remove("you-won");
+
+	});
 });
